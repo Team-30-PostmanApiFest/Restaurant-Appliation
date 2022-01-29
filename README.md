@@ -45,3 +45,5 @@ API WORKSPACE: https://www.postman.com/api-evangelist/workspace/api-fest-restaur
 The API is developed as a project for API Fest organized by Postman in the span of 26th Jan 2022 and 29th Jan 2022. 
 1. [Pratistha Sinha](rinsin2002@gmail.com) - [ TEAM LEAD ]
 2. [Sauradip Sengupta](sauradip.sengupta@gmail.com) - Frontend and backend,API Developer [ MEMBER ]
+# Video Explanation:
+https://drive.google.com/file/d/1wD_0ZK3e22ANzGDQ_6roDZNfWia8gRmE/view?usp=sharing
