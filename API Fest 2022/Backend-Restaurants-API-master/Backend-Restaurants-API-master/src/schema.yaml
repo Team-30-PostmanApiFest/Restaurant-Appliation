@@ -1,0 +1,177 @@
+openapi: 3.0.0
+info:
+  version: 'v1'
+  title: 'My first Restaurant API'
+servers:
+  - url: 'localhost:3000'
+  - url: 'https://1771b1ff-56a6-44b0-b8ae-cad19bc34dfa.mock.pstmn.io'
+paths:
+  /restaurant:
+    get:
+      summary: 'Sample endpoint: Returns details about a particular user'
+      operationId: listRestaurants
+      tags:
+        - Restaurants
+      parameters:
+        - name: id
+          in: query
+          description: ID of the user
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: 'A List of restaurants'
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurants'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Adds a restaurant
+      operationId: addRestaurant
+      parameters:
+        - name: id
+          in: query
+          description: ID of the user
+          required: true
+          schema:
+            type: integer
+            format: int32      
+      tags:
+          - Restaurants
+       
+      requestBody:
+          required: true
+          description: Restaurant
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+      responses:
+        '201':
+          description: Restaurant
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+  /restaurant/{id}:
+    get:
+      summary: Restaurant
+      operationId: getRestaurant
+      parameters:
+        - name: id
+          in: path
+          description: ID of the user
+          required: true
+          schema:
+            type: string
+            
+                
+      tags:
+        - Restaurant
+
+      responses:
+        '200':
+          description: 'A unique list of restaurants'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+    put:
+      summary: 'Updates your restaurant'
+      operationId: updateRestaurant
+      parameters:
+        - name: id
+          in: path
+          description: ID of the user
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+          required: true
+          description: Updates all the restaurants
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+       
+      tags:
+        - Restaurant
+
+      responses:
+        '204':
+            description: Adds Restaurants
+    delete:
+      summary: 'Deletes the required restaurant'
+      operationId: deleteRestaurant
+      parameters:
+        - name: id
+          in: path
+          description: ID of the user
+          required: true
+          schema:
+            type: string
+            
+      tags:
+        - Restaurants
+
+      responses:
+        '204':
+            description: Deletes the given restaurant           
+            
+                    
+components:
+  schemas:
+    Restaurants:
+      type: array
+      items:
+          $ref: '#/components/schemas/Restaurant'
+    Restaurant:
+      type: object
+      required:
+        - id
+        - name
+        - cuisine
+      properties:
+        id:
+          type: string
+          description: Unique identifier for restaurants.
+       
+        name:
+          type: string
+          description: Name of the restaurant.
+        tag:
+          type: string
+        cuisine:
+          type: string
+          description: The cuisine offered by the restaurant.
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+security:
+  - BasicAuth: []
